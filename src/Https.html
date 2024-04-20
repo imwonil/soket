@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<html lang="ko">
+		<meta http-equiv="content-type" content="text/html; charset=euc-kr">
+<head>     
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=euc-kr">
+	<style type="text/css" media="screen">
+		div {
+        margin: 10px 0px;
+		width :900px;
+        text-align: center;
+      }
+	  
+      .a {
+        border: 1px dashed #bcbcbc;
+      }
+	</style>
+
+    <script type="text/javascript" src="/js/home/jquery-1.9.1.min.js" ></script>
+    <!-- <script type="text/javascript" src="/js/home/jquery.form.js" ></script>
+    <!-- <script type="text/javascript" src="/js/home/jquery.blockUI.js" ></script> -->
+	<script type="text/javascript" src="/js/home/http.js" ></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+</head>
+<body>
+<form name="form" method="post">
+
+<div class="a">
+<div>NICE NVCAT HTTP 연동테스트프로그램</div>
+
+<table>	
+	<tr align="center">
+		<td><font size="2"> * 아래 거래 유형을 선택 후 테스트 진행해주세요.</font></td>
+	</tr>
+</table>
+
+<table align="center" cellspacing="0" cellpadding="0" style="width:800px; border:2px solid #ddd;background-color:#FFF;">
+	<tr bgcolor="blue" align ="center">
+		<p><td colspan = "3" span style="color:white"> 거래 유형 </td></p>
+	</tr>
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="credit"/>신용승인</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="credit_fallback"/>신용승인(FALLBACK)</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="credit_cancel"/>신용취소</td>
+	</tr>
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cup"/>해외은련승인</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cup_cancel"/>해외은련취소</td>
+
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cash_keyin"/>현금승인(키인)</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cash_keyin_cancel"/>현금취소(키인)</td>
+	</tr>
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cash_card"/>현금승인(카드)</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cash_card_cancel2"/>현금취소(카드)</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cash_touch"/>현금승인(터치)</td>
+	</tr>
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cash_touch_cancel"/>현금취소(터치)</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cashIC"/>현금IC승인</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cashIC_touch"/>현금IC승인(터치)</td>
+	</tr>
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cashIC_cancel"/>현금IC취소</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cashIC_jan"/>현금IC잔액조회</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cashIC_app_result"/>현금IC승인결과</td>
+	</tr>
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="cashIC_cancel_result"/>현금IC취소결과</td>
+	</tr>
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="kakao_auth"/>카카오승인인증</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="kakao_money"/>카카오머니</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="kakao_approval"/>카카오카드승인</td>
+	</tr>
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="kakao_auth_cancel"/>카카오취소인증</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="kakao_money_cancel"/>카카오머니취소(바코드)</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="kakao_card_cancel"/>카카오카드취소(OTC)</td>
+	</tr>
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="paypro"/>PAYPRO간편결제승인</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="paypro_cancel"/>PAYPRO간편결제취소</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="req_bill"/>수표조회</td>
+	</tr>	
+</table>
+<table align="center" cellspacing="0" cellpadding="0" style="width:800px; border:2px solid #ddd;background-color:#FFF;">
+	<tr bgcolor="blue" align ="center">
+		<p><td colspan = "3" span style="color:white"> 기타 API </td></p>	
+	</tr>	
+	<tr align="left">		
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="req_stop"/>카드리딩 요청취소</td>	
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="restart"/>NVCAT 재시작</td>			
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="nvcatshutdown"/>NVCATSHUTDOWN</td>	
+	</tr>
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="reader_reset"/>리더기초기화</td>	
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="get_appr"/>직전거래 승인내역 조회</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="chk_cardbin"/>카드BIN요청</td>
+	</tr>
+	<tr align="left">					
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="chk_cashic"/>(리더기)현금IC 계좌 수 확인</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="chk_cashic_mp"/>(멀티패드)현금IC 계좌 수 확인</td>
+	</tr>
+	<tr align="left">					
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="chk_cashic_2"/>(리더기)현금IC 가능 여부 확인</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="chk_cashic_mp2"/>(멀티패드)현금IC 가능 여부 확인</td>
+	</tr>
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="chk_membership"/>멤버쉽 카드번호 요청</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="chk_cardin"/>(TIT리더기)카드삽입 여부</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="chk_cardin_mp"/>(멀티패드)카드삽입 여부</td>
+	</tr>
+	<tr align="left">	
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="readerportopen"/>리더기 PORT OPEN</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="readerportclose"/>리더기 PORT CLOSE</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="req_cashno"/>고객식별번호</td>		
+	</tr>
+	<tr align="left">		
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="set_server_ip"/>서버IP/PORT설정</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="req_barcode"/>바코드리딩</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="getmac"/>MAC주소가져오기</td>
+	</tr>
+	<tr align="left">		
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="setcnldisableyn"/>부정취소사용여부설정</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="titlock"/>TDR리더기 수동LOCK</td>
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="reg_selectbtn"/>사용자 선택 버튼 기능</td>
+	</tr>	
+	<tr align="left">
+		<td><input type="radio" name="myRadios" onclick="handleClick(this);" value="getdecsigndata"/>BMP->서명데이터 변환</td>
+	</tr>
+	<tr align="left">
+	</tr>
+</table>
+
+<table align="center" cellspacing="0" cellpadding="0" style="width:800px; border:2px solid #ddd;background-color:#FFF;">
+	<tr bgcolor="blue" align ="center">
+		<p><td colspan = "3" span style="color:white">[요청 파라미터]</td></p>
+	</tr>
+	<tr align="left">
+		<td>승인번호 : <input type="text" id="number" name="agreenum" style="width: 100px; height: 15px" value=""></td>
+		<td>승인날짜 : <input type="text" name="agreedate" style="width: 100px; height: 15px" value="220502"></td>
+		<td>CATID : <input type="text" name="catid" style="width: 100px; height: 15px" value=""></td>
+	</tr>
+	<tr align="left">
+		<td>할부 : <input type="text" name="halbu" style="width: 100px; height: 15px" value="00"></td>
+		<td>현금식별번호(바코드) : <input type="text" name="cashno" style="width: 100px; height: 15px" value="01023720000"></td>
+		<!-- 아래부분 결재 금액  -->
+		<td>총금액 : <input type="text" name="money" style="width: 100px; height: 15px" value="1"></td>  
+	</tr>
+	<tr align="left">
+		<td>부가세 : <input type="text" name="tax" style="width: 100px; height: 15px" value="0"></td>
+		<td>봉사료 : <input type="text" name="bongsa" style="width: 100px; height: 15px" value="0"></td>
+		<td>면세금액 : <input type="text" name="myunse" style="width: 100px; height: 15px" value="0"></td>
+	</tr>
+</table>
+
+<br>
+SendData : <input type="text" name="SendData" size="100"><br><br>
+RecvData :
+<textarea name="RecvData" cols="100" rows="5"></textarea>
+<br><br>
+
+<a href="javascript:reqVCAT_HTTP()">VCAT 요청(HTTP방식)</a><p>
+
+<table align="center" cellspacing="0" cellpadding="0" style="width:800px; border:2px solid #ddd;background-color:#FFF;">
+	<tr bgcolor="blue" align ="center">
+		<p><td colspan = "3" span style="color:white">[ 수표 조회 파라미터 ]</td></p>
+	</tr>
+	<tr align="left">
+		<td colspan = "3">수표종류 : <input type="text" name="billtype" style="width: 100px; height: 15px" value="00"> "00" : 자기앞수표, "01" : 가계수표, "02" : 당좌수표
+	</tr>
+	<tr align="left">	
+		<td colspan = "3">수표권종 : <input type="text" name="billmoney" style="width: 100px; height: 15px" value="13"> "13":10만원, "14":30만원, "15":50만원, "16":100만원, "19":비정액수표전체
+	</tr>
+	<tr align="left">
+		<td colspan = "3">수표번호 : <input type="text" name="billnum" style="width: 100px; height: 15px" value=""> 
+	</tr>
+	<tr align="left">
+		<td>발행일   : <input type="text" name="billdt" style="width: 100px; height: 15px" value="">
+		<td>주민등록번호 : <input type="text" name="billsn" style="width: 100px; height: 15px" value=""> 
+		<td>수표금액 : <input type="text" name="billamt" style="width: 100px; height: 15px" value=""> 
+	</tr>
+	<tr align="left">
+		<td colspan = "3">계좌일련번호 : <input type="text" name="billserial" style="width: 100px; height: 15px" value=""> 
+	</tr>
+</table>
+
+</div>
+</body>	
+</form>
+<div id="btn"></div>
+<div id="log"></div>
+
+
+
+</body>
+</html>
